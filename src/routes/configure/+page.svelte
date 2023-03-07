@@ -1,16 +1,30 @@
 <script lang="ts">
-    import type { PageData } from './$types';
+    import type { PageData, ActionData } from './$types';
     export let data: PageData;
+    export let form: ActionData;
+
+    const lat = form?.lat || data.lat;
+    const long = form?.long || data.long;
 </script>
 
-<form method="POST">
+<form method="POST" action="?/locate">
+    <label>
+        Freeform
+        <input name="user_location" type="text">
+    </label>
+    <button>Locate</button>
+</form>
+
+<br />
+
+<form method="POST" action="?/configure">
     <label>
         Latitude
-        <input name="lat" type="text" value={data.lat}>
+        <input name="lat" type="text" value={lat}>
     </label>
     <label>
         Longitude
-        <input name="long" type="text" value={data.long}>
+        <input name="long" type="text" value={long}>
     </label>
     <button>Check Perfection</button>
 </form>
