@@ -5,6 +5,6 @@
     console.log(weather);
 </script>
 
-Temperature: {weather.temperature}º F
+Temperature: { weather.temperature }º F
 
 <a href="/configure">Configure location</a>
