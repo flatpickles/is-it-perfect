@@ -2,9 +2,19 @@
     import type { PageData } from './$types';
     export let data: PageData;
     const weather = data.weather;
-    console.log(weather);
 </script>
 
-Temperature: { weather.temperature }º F
+<p>
+    Temperature: { weather.temperature }º F
+</p>
+
+<p>
+    { data.neighborhoodName }
+</p>
+
+<p>
+    { data.cityName }
+</p>
+
 
 <a href="/configure">Configure location</a>
