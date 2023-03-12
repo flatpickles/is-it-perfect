@@ -3,8 +3,8 @@
     export let data: PageData;
     export let form: ActionData;
 
-    const lat = form?.lat || data.lat;
-    const long = form?.long || data.long;
+    const lat = form?.lat || data.coords.lat;
+    const long = form?.long || data.coords.long;
 </script>
 
 <form method="POST" action="?/locate">

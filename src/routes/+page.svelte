@@ -1,20 +1,24 @@
 <script lang="ts">
-    import type { PageData } from './$types';
+    import WeatherHelpers from '$lib/WeatherHelpers';
+import type { PageData } from './$types';
     export let data: PageData;
-    const weather = data.weather;
+
+    const failure = data.failure;
 </script>
 
-<p>
-    Temperature: { weather.temperature }º F
-</p>
 
-<p>
-    { data.neighborhoodName }
-</p>
+{#if !failure}
+    <p>
+        Temperature: { data.weather?.temp }º F
+    </p>
 
-<p>
-    { data.cityName }
-</p>
-
+    <p>
+        { data.placeName }
+    </p>
+{:else}
+    <p>
+        Failed to get Weather
+    </p>
+{/if}
 
 <a href="/configure">Configure location</a>
