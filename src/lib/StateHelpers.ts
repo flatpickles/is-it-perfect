@@ -1,7 +1,7 @@
 import type { RequestEvent } from '@sveltejs/kit';
 import { PUBLIC_DEV_ENV } from '$env/static/public';
 import { GOOGLE_KEY } from '$env/static/private';
-import type { Coords, Perfection } from './types';
+import { type Coords, type Perfection, defaultPerfection } from './types';
 
 // Todo: move elsewhere?
 const config = {
@@ -27,10 +27,6 @@ function geoDistance(lat1: number, long1: number, lat2: number, long2: number) {
         Math.cos(lat1) * Math.cos(lat2) * Math.cos(long2 - long1)
     ) * 6371.0;
 }
-
-const defaultPerfection: Perfection = {
-    temp: 68
-};
 
 export default class StateHelpers {
     static async currentCoords(request: RequestEvent): Promise<Coords> {
@@ -65,11 +61,16 @@ export default class StateHelpers {
     }
 
     static currentPerfection(request: RequestEvent): Perfection {
-        const storedPerfectTempStr = request.cookies.get('temp');
-        const storedPerfectTemp = storedPerfectTempStr ? parseFloat(storedPerfectTempStr) : null;
+        const storedTempLowStr = request.cookies.get('tempLow');
+        const storedTempHighStr = request.cookies.get('tempHigh');
+        const storedPerfection: Partial<Perfection> = {
+            tempLow: storedTempLowStr ? parseFloat(storedTempLowStr) : undefined,
+            tempHigh: storedTempHighStr ? parseFloat(storedTempHighStr) : undefined,
+        }
         return {
-            temp: storedPerfectTemp ?? defaultPerfection.temp
-        };
+            ...storedPerfection,
+            ...defaultPerfection,
+        }
     }
 
     static async placeName(currentCoords: Coords): Promise<string> {

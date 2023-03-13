@@ -6,11 +6,24 @@
     export let data: PageData;
     // export let form: ActionData;
 
-    const pefection: Perfection = data.perfection;
+
+    const perfection: Perfection = data.perfection;
 </script>
 
-<p>
-    Current perfect temp: { pefection.temp }° F
-</p>
+<form method="POST" action="?/perfect">
+    <label>
+        Low Temperature: {perfection.tempLow}
+        <br />
+        <input name="tempLow" type="range" bind:value={perfection.tempLow}>
+    </label>
+    <br />
+    <label>
+        High Temperature: {perfection.tempHigh}
+        <br />
+        <input name="tempHigh" type="range" bind:value={perfection.tempHigh}>
+    </label>
+    <br />
+    <button>Perfect</button>
+</form>
 
 <Cookies />
