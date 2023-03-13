@@ -21,4 +21,10 @@ import type { PageData } from './$types';
     </p>
 {/if}
 
-<a href="/configure">Configure location</a>
+<p>
+    <a href="/location">Refine Location</a>
+</p>
+
+<p>
+    <a href="/perfection">Define Perfection</a>
+</p>

@@ -1,4 +1,6 @@
 <script lang="ts">
+    import Cookies from '$lib/components/cookies.svelte';
+
     import type { PageData, ActionData } from './$types';
     export let data: PageData;
     export let form: ActionData;
@@ -28,3 +30,5 @@
     </label>
     <button>Check Perfection</button>
 </form>
+
+<Cookies />

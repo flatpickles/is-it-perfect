@@ -7,8 +7,13 @@ export interface Coords {
     refined: boolean
 }
 
+// todo make these non-string values
 export interface Weather {
     temp: string,
     windspeed: string,
     code: string
+}
+
+export interface Perfection {
+    temp: number
 }

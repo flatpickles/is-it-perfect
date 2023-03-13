@@ -1,12 +1,14 @@
 import type { RequestEvent } from '@sveltejs/kit';
 import { PUBLIC_DEV_ENV } from '$env/static/public';
 import { GOOGLE_KEY } from '$env/static/private';
-import type { Coords } from './types';
+import type { Coords, Perfection } from './types';
 
+// Todo: move elsewhere?
 const config = {
     latCookieName: 'lat',
     longCookieName: 'long',
-    refinedLimit: 10 // location is "refined" within this number of km
+    refinedCookieName: 'refined',
+    refinedLimit: 20 // location is "refined" within this number of km
 }
 
 /**
@@ -16,11 +18,19 @@ const config = {
  * @returns - kilometers between the two locations
  */
 function geoDistance(lat1: number, long1: number, lat2: number, long2: number) {
+    lat1 = lat1 * Math.PI/180;
+    long1 = long1 * Math.PI/180;
+    lat2 = lat2 * Math.PI/180;
+    long2 = long2 * Math.PI/180;
     return Math.acos(
         Math.sin(lat1) * Math.sin(lat2) +
         Math.cos(lat1) * Math.cos(lat2) * Math.cos(long2 - long1)
     ) * 6371.0;
 }
+
+const defaultPerfection: Perfection = {
+    temp: 68
+};
 
 export default class StateHelpers {
     static async currentCoords(request: RequestEvent): Promise<Coords> {
@@ -40,10 +50,10 @@ export default class StateHelpers {
         if (!ipLat || !ipLong) throw new Error('Cannot locate IP address');
 
         // Calculate distances, if relevant
-        let refined = false;
+        let refined = (request.cookies.get(config.refinedCookieName) === 'true');
         if (storedLat && storedLong && ipLat && ipLong) {
             const distance = geoDistance(storedLat, storedLong, ipLat, ipLong);
-            if (distance < config.refinedLimit) refined = true;
+            if (distance > config.refinedLimit) refined = false;
         }
 
         // Return relevant config (promise)
@@ -52,6 +62,14 @@ export default class StateHelpers {
             long: storedLong || ipLong,
             refined: refined,
         }
+    }
+
+    static currentPerfection(request: RequestEvent): Perfection {
+        const storedPerfectTempStr = request.cookies.get('temp');
+        const storedPerfectTemp = storedPerfectTempStr ? parseFloat(storedPerfectTempStr) : null;
+        return {
+            temp: storedPerfectTemp ?? defaultPerfection.temp
+        };
     }
 
     static async placeName(currentCoords: Coords): Promise<string> {
@@ -74,15 +92,12 @@ export default class StateHelpers {
                 return acc;
             }, {});
         
-            const refinedName = componentsMap['neighborhood'] ??
-                componentsMap['sublocality'] ??
+            const generalName = componentsMap['sublocality'] ??
                 componentsMap['locality'] ??
                 componentsMap['administrative_area_level_2'] ??
                 componentsMap['administrative_area_level_1'] ??
                 componentsMap['country'];
-            const generalName = componentsMap['administrative_area_level_2'] ??
-                componentsMap['administrative_area_level_1'] ??
-                componentsMap['country'];
+            const refinedName = componentsMap['neighborhood'] ?? generalName;
 
             // Return the right thing, depending on refinement
             return currentCoords.refined ? refinedName : generalName;
