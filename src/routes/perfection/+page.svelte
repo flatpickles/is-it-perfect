@@ -24,7 +24,7 @@
 
 <form method="POST" action="?/perfect">
     <label>
-        Low Temperature: {perfection.tempLow}
+        Low Temperature: {perfection.tempLow} {perfection.metric ? "Cº" : "Fº"}
         <br />
         <input
             name={Config.tempLowName}
@@ -36,7 +36,7 @@
     </label>
     <br />
     <label>
-        High Temperature: {perfection.tempHigh}
+        High Temperature: {perfection.tempHigh} {perfection.metric ? "Cº" : "Fº"}
         <br />
         <input
             name={Config.tempHighName}
@@ -48,7 +48,7 @@
     </label>
     <br />
     <label>
-        Max Wind: {perfection.maxWind}
+        Max Wind: {perfection.maxWind} {perfection.metric ? "km/h" : "mph"}
         <br />
         <input
             name={Config.maxWindName}

@@ -6,14 +6,18 @@ import type { PageServerLoad } from './$types';
 
 export const load = (async (request) => {
     try {
-        const coords = await StateHelpers.currentCoords(request);
+        const [coords, perfection] = await Promise.all([
+            StateHelpers.currentCoords(request),
+            StateHelpers.currentPerfection(request),
+        ]);
         const [place, weather] = await Promise.all([
             StateHelpers.placeName(coords),
-            WeatherHelpers.currentWeather(coords),
+            WeatherHelpers.currentWeather(coords, perfection.metric),
         ]);
 
         return {
             weather: weather,
+            perfection: perfection,
             placeName: place,
             failure: false
         };
