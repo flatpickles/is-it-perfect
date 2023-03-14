@@ -8,6 +8,11 @@ const config = {
     latCookieName: 'lat',
     longCookieName: 'long',
     refinedCookieName: 'refined',
+
+    tempLowCookieName: 'tempLow',
+    tempHighCookieName: 'tempHigh',
+    maxWindCookieName: 'maxWind',
+
     refinedLimit: 20 // location is "refined" within this number of km
 }
 
@@ -43,19 +48,21 @@ export default class StateHelpers {
         const ipLat: number | null = ipLatStr ? parseFloat(ipLatStr) : null;
         const ipLongStr: string | undefined = ipReqData['lon'];
         const ipLong: number | null = ipLongStr ? parseFloat(ipLongStr) : null;
-        if (!ipLat || !ipLong) throw new Error('Cannot locate IP address');
-
+        
         // Calculate distances, if relevant
         let refined = (request.cookies.get(config.refinedCookieName) === 'true');
         if (storedLat && storedLong && ipLat && ipLong) {
             const distance = geoDistance(storedLat, storedLong, ipLat, ipLong);
             if (distance > config.refinedLimit) refined = false;
         }
-
-        // Return relevant config (promise)
+        
+        // Calculate the return values
+        const returnLat = storedLat || ipLat;
+        const returnLong = storedLong || ipLong;
+        if (!returnLat || !returnLong) throw new Error('Cannot get location from cookies or IP address');
         return {
-            lat: storedLat || ipLat,
-            long: storedLong || ipLong,
+            lat: returnLat,
+            long: returnLong,
             refined: refined,
         }
     }
@@ -63,14 +70,15 @@ export default class StateHelpers {
     static currentPerfection(request: RequestEvent): Perfection {
         const storedTempLowStr = request.cookies.get('tempLow');
         const storedTempHighStr = request.cookies.get('tempHigh');
-        const storedPerfection: Partial<Perfection> = {
-            tempLow: storedTempLowStr ? parseFloat(storedTempLowStr) : undefined,
-            tempHigh: storedTempHighStr ? parseFloat(storedTempHighStr) : undefined,
-        }
+        const storedMaxWindStr = request.cookies.get('maxWind');
+        const storedPerfection: Partial<Perfection> = {};
+        if (storedTempLowStr) storedPerfection.tempLow = parseFloat(storedTempLowStr);
+        if (storedTempHighStr) storedPerfection.tempHigh = parseFloat(storedTempHighStr);
+        if (storedMaxWindStr) storedPerfection.maxWind = parseFloat(storedMaxWindStr);
         return {
-            ...storedPerfection,
             ...defaultPerfection,
-        }
+            ...storedPerfection
+        };
     }
 
     static async placeName(currentCoords: Coords): Promise<string> {
@@ -105,5 +113,19 @@ export default class StateHelpers {
         } catch {
             throw new Error('Cannot parse place name from coordinates.')
         }
+    }
+
+    static async setPerfection(requestEvent: RequestEvent) {
+        const data = await requestEvent.request.formData();
+        requestEvent.cookies.set(config.tempLowCookieName, data.get('tempLow') as string, { path: '/' });
+        requestEvent.cookies.set(config.tempHighCookieName, data.get('tempHigh') as string, { path: '/' });
+        requestEvent.cookies.set(config.maxWindCookieName, data.get('maxWind') as string, { path: '/' });
+    }
+
+    static async setLocation(requestEvent: RequestEvent) {
+        const data = await requestEvent.request.formData();
+        requestEvent.cookies.set(config.latCookieName, data.get(config.latCookieName) as string, { path: '/' });
+        requestEvent.cookies.set(config.longCookieName, data.get(config.longCookieName) as string, { path: '/' });
+        requestEvent.cookies.set(config.refinedCookieName, 'true', { path: '/' });
     }
 }

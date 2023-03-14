@@ -10,7 +10,8 @@ export const load = (async (request) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-    perfect: async ({ cookies, request }) => {
+    perfect: async (request) => {
+        await StateHelpers.setPerfection(request);
         throw redirect(303, '/');
-    }
+    },
 } satisfies Actions;

@@ -9,6 +9,7 @@ export default class WeatherHelpers {
             longitude: coords.long.toString(),
             current_weather: 'true',
             temperature_unit: 'fahrenheit',
+            timeformat: 'unixtime'
         };
         Object.entries(weatherParams).map(([param, value]) => weatherUrl.searchParams.append(param, value));
         const weatherData = await fetch(weatherUrl).then((response) => response.json());

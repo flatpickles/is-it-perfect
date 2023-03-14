@@ -16,10 +16,12 @@ export interface Weather {
 
 export interface Perfection {
     tempLow: number,
-    tempHigh: number
+    tempHigh: number,
+    maxWind: number
 }
 
 export const defaultPerfection: Perfection = {
     tempLow: 66,
-    tempHigh: 74
+    tempHigh: 74,
+    maxWind: 5,
 };

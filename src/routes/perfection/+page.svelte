@@ -23,6 +23,12 @@
         <input name="tempHigh" type="range" bind:value={perfection.tempHigh}>
     </label>
     <br />
+    <label>
+        Max Wind: {perfection.maxWind}
+        <br />
+        <input name="maxWind" type="range" bind:value={perfection.maxWind}>
+    </label>
+    <br />
     <button>Perfect</button>
 </form>
 
