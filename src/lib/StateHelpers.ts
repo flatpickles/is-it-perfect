@@ -3,18 +3,7 @@ import { PUBLIC_DEV_ENV } from '$env/static/public';
 import { GOOGLE_KEY } from '$env/static/private';
 import { type Coords, type Perfection, defaultPerfection } from './types';
 
-// Todo: move elsewhere?
-const config = {
-    latCookieName: 'lat',
-    longCookieName: 'long',
-    refinedCookieName: 'refined',
-
-    tempLowCookieName: 'tempLow',
-    tempHighCookieName: 'tempHigh',
-    maxWindCookieName: 'maxWind',
-
-    refinedLimit: 20 // location is "refined" within this number of km
-}
+import Config from '$lib/Config';
 
 /**
  * Return the distance in kilometers between two locations
@@ -35,9 +24,9 @@ function geoDistance(lat1: number, long1: number, lat2: number, long2: number) {
 
 export default class StateHelpers {
     static async currentCoords(request: RequestEvent): Promise<Coords> {
-        const storedLatStr: string | undefined = request.cookies.get(config.latCookieName);
+        const storedLatStr: string | undefined = request.cookies.get(Config.latName);
         const storedLat: number | null = storedLatStr ? parseFloat(storedLatStr) : null;
-        const storedLongStr: string | undefined = request.cookies.get(config.longCookieName);
+        const storedLongStr: string | undefined = request.cookies.get(Config.longName);
         const storedLong: number | null = storedLongStr ? parseFloat(storedLongStr) : null;
 
         // Get the current IP address
@@ -50,10 +39,10 @@ export default class StateHelpers {
         const ipLong: number | null = ipLongStr ? parseFloat(ipLongStr) : null;
         
         // Calculate distances, if relevant
-        let refined = (request.cookies.get(config.refinedCookieName) === 'true');
+        let refined = (request.cookies.get(Config.refinedName) === 'true');
         if (storedLat && storedLong && ipLat && ipLong) {
             const distance = geoDistance(storedLat, storedLong, ipLat, ipLong);
-            if (distance > config.refinedLimit) refined = false;
+            if (distance > Config.refinedLimit) refined = false;
         }
         
         // Calculate the return values
@@ -68,13 +57,20 @@ export default class StateHelpers {
     }
 
     static currentPerfection(request: RequestEvent): Perfection {
-        const storedTempLowStr = request.cookies.get('tempLow');
-        const storedTempHighStr = request.cookies.get('tempHigh');
-        const storedMaxWindStr = request.cookies.get('maxWind');
+        // It'd be nice to do this iteratively, but that's hard in a type-safe way... 
+        const storedTempLowStr = request.cookies.get(Config.tempLowName);
+        const storedTempHighStr = request.cookies.get(Config.tempHighName);
+        const storedMaxWindStr = request.cookies.get(Config.maxWindName);
+        const storedCloudsStr = request.cookies.get(Config.cloudsName);
+        const storedPrecipStr = request.cookies.get(Config.precipitationName);
+        const storedMetricStr = request.cookies.get(Config.metricName);
         const storedPerfection: Partial<Perfection> = {};
         if (storedTempLowStr) storedPerfection.tempLow = parseFloat(storedTempLowStr);
         if (storedTempHighStr) storedPerfection.tempHigh = parseFloat(storedTempHighStr);
         if (storedMaxWindStr) storedPerfection.maxWind = parseFloat(storedMaxWindStr);
+        if (storedCloudsStr) storedPerfection.clouds = parseFloat(storedCloudsStr);
+        if (storedPrecipStr) storedPerfection.precipitation = parseFloat(storedPrecipStr);
+        if (storedMetricStr) storedPerfection.metric = (storedMetricStr === 'true');
         return {
             ...defaultPerfection,
             ...storedPerfection
@@ -117,15 +113,16 @@ export default class StateHelpers {
 
     static async setPerfection(requestEvent: RequestEvent) {
         const data = await requestEvent.request.formData();
-        requestEvent.cookies.set(config.tempLowCookieName, data.get('tempLow') as string, { path: '/' });
-        requestEvent.cookies.set(config.tempHighCookieName, data.get('tempHigh') as string, { path: '/' });
-        requestEvent.cookies.set(config.maxWindCookieName, data.get('maxWind') as string, { path: '/' });
+        Object.keys(defaultPerfection).forEach((key) => {
+            requestEvent.cookies.set(key, data.get(key) as string, { path: '/' });
+        });
     }
 
     static async setLocation(requestEvent: RequestEvent) {
         const data = await requestEvent.request.formData();
-        requestEvent.cookies.set(config.latCookieName, data.get(config.latCookieName) as string, { path: '/' });
-        requestEvent.cookies.set(config.longCookieName, data.get(config.longCookieName) as string, { path: '/' });
-        requestEvent.cookies.set(config.refinedCookieName, 'true', { path: '/' });
+        [Config.latName, Config.longName].forEach((key) => {
+            requestEvent.cookies.set(key, data.get(key) as string, { path: '/' });
+        });
+        requestEvent.cookies.set(Config.refinedName, 'true', { path: '/' });
     }
 }

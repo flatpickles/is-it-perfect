@@ -17,11 +17,17 @@ export interface Weather {
 export interface Perfection {
     tempLow: number,
     tempHigh: number,
-    maxWind: number
+    maxWind: number,
+    clouds: number,
+    precipitation: number,
+    metric: boolean,
 }
 
 export const defaultPerfection: Perfection = {
     tempLow: 66,
     tempHigh: 74,
     maxWind: 5,
+    clouds: 1,
+    precipitation: 0,
+    metric: false,
 };

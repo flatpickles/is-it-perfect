@@ -3,15 +3,15 @@ import { redirect, fail } from '@sveltejs/kit';
 import StateHelpers from '$lib/StateHelpers';
 import type { PageServerLoad } from '../$types';
  
-export const load = (async (request) => {
+export const load = (async (requestEvent) => {
     return {
-        coords: await StateHelpers.currentCoords(request)
+        coords: await StateHelpers.currentCoords(requestEvent)
     }
 }) satisfies PageServerLoad;
 
 export const actions = {
-    configure: async (request) => {
-        StateHelpers.setLocation(request);
+    configure: async (requestEvent) => {
+        await StateHelpers.setLocation(requestEvent);
         throw redirect(303, '/');
     },
 
