@@ -18,10 +18,12 @@ export const load = (async (request) => {
         return {
             weather: weather,
             perfection: perfection,
+            isPerfect: WeatherHelpers.isPerfect(weather, perfection),
             placeName: place,
             failure: false
         };
-    } catch {
+    } catch (exception) {
+        console.error(exception);
         return {
             failure: true
         }

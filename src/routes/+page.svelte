@@ -6,9 +6,21 @@
 </script>
 
 
-{#if !failure}
+{#if !failure && data.weather && data.perfection}
     <p>
-        Temperature: { data.weather?.temp } {data.perfection?.metric ? "Cº" : "Fº"}
+        <b>{ data.isPerfect ? "Perfect" : "Not Perfect" }</b>
+    </p>
+
+    <p>
+        { WeatherHelpers.weatherDescription(data.weather.code) }
+    </p>
+
+    <p>
+        Temperature: { data.weather.temp } {data.perfection.metric ? "Cº" : "Fº"}
+    </p>
+
+    <p>
+        Wind: { data.weather.windspeed } {data.perfection.metric ? "km/h" : "mph"}
     </p>
 
     <p>

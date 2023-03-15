@@ -9,9 +9,9 @@ export interface Coords {
 
 // todo make these non-string values
 export interface Weather {
-    temp: string,
-    windspeed: string,
-    code: string
+    temp: number,
+    windspeed: number,
+    code: number,
 }
 
 export interface Perfection {
