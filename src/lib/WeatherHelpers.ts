@@ -9,6 +9,7 @@ export default class WeatherHelpers {
             longitude: coords.long.toString(),
             current_weather: 'true',
             temperature_unit: metric ? 'celsius' :'fahrenheit',
+            windspeed_unit: metric ? 'kmh' : 'mph',
             timeformat: 'unixtime'
         };
         Object.entries(weatherParams).map(([param, value]) => weatherUrl.searchParams.append(param, value));

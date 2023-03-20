@@ -1,5 +1,5 @@
 
-
+import LocationHelpers from '$lib/LocationHelpers';
 import StateHelpers from '../lib/StateHelpers';
 import WeatherHelpers from '../lib/WeatherHelpers';
 import type { PageServerLoad } from './$types';
@@ -11,7 +11,7 @@ export const load = (async (request) => {
             StateHelpers.currentPerfection(request),
         ]);
         const [place, weather] = await Promise.all([
-            StateHelpers.placeName(coords),
+            LocationHelpers.placeName(coords),
             WeatherHelpers.currentWeather(coords, perfection.metric),
         ]);
 
