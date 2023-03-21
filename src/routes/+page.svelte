@@ -12,9 +12,9 @@
 
 <div class="perfection">
     {#if !failure && data.perfection}
-        { data.isPerfect ? "Perfect" : "Not Perfect" }
+        { data.isPerfect ? "PERFECT" : "NOT PERFECT" }
     {:else}
-        Unknown
+        UNKNOWN
     {/if}
 </div>
 
@@ -36,6 +36,8 @@
     {/if}
 </div>
 
+<div class="spacer"></div>
+
 {#if !failure && data.placeName}
     <div class="location">
         {data.placeName}
@@ -49,34 +51,40 @@
 
 <style lang="scss">
     .lead {
+        font-family: 'Rosaline', cursive;
         font-size: 1.5rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
     }
 
     .perfection {
-        font-size: 3rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
+        width: 100%;
+        margin-bottom: $element-spacing * 2;
+
+        font-family: 'Boska', serif;
+        font-size: 4rem;
+        text-align: center;
+
+        color: $background-color;
+        background-color: $foreground-color;
     }
 
     .conditions {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 1rem;
     }
 
     .condition {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
+        @include primary-text;
+        margin-bottom: $element-spacing;
+    }
+
+    .spacer {
+        flex-grow: 1;
     }
 
     .location {
-        font-size: 1rem;
-        font-weight: 600;
-        margin-bottom: var(--element-spacing);
+        @include primary-text;
+        margin-bottom: $element-spacing * 2;
     }
 
     .buttons {

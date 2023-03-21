@@ -4,11 +4,11 @@
 
 <a href={href}>
     <div class="button">
-        <slot /> Bubba dubba dubba dubba
+        <slot />
     </div>
 </a>
 
-<style>
+<style lang="scss">
     a {
         width: 100%;
     }
@@ -16,11 +16,13 @@
     .button {
         display: inline-block;
         padding: 0.5rem 1rem;
-        background-color: #eee;
-        color: #333;
-        text-decoration: none;
+
+        background-color: $foreground-color;
+        color: $background-color;
         
+        @include primary-text;
         text-align: center;
+        text-decoration: none;
 
         width: 100%;
     }

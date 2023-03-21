@@ -27,8 +27,9 @@
 
         width: 100%;
         max-width: $max-width;
+        min-height: $min-height;
         padding: $element-spacing 0rem;
 
-        background-color: rgba(255, 255, 255, 0.1);
+        color: $foreground-color;
     }
 </style>

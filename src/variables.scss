@@ -1,6 +1,11 @@
-/* Variables and mixins declared here will be available in all other SCSS files */
-
+$foreground-color: #dafbff;
 $background-color: #a96363;
 
+@mixin primary-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
 $max-width: 25rem;
-$element-spacing: 1rem;
+$min-height: 30rem;
+$element-spacing: 0.5rem;
