@@ -1,18 +1,8 @@
-<script lang="ts">
-    export let href: string;
-</script>
-
-<a href={href}>
-    <div class="button">
-        <slot />
-    </div>
-</a>
+<div class="button">
+    <slot />
+</div>
 
 <style lang="scss">
-    a {
-        width: 100%;
-    }
-
     .button {
         display: inline-block;
         padding: 0.5rem 1rem;

@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { PageData } from './$types';
     import WeatherHelpers from '$lib/WeatherHelpers';
-    import Button from '$lib/components/Button.svelte';
+    import ButtonLink from '$lib/components/ButtonLink.svelte';
     export let data: PageData;
     const failure = data.failure;
 </script>
@@ -45,8 +45,8 @@
 {/if}
 
 <div class="buttons">
-    <Button href="/location">Refine Location</Button>
-    <Button href="/perfection">Define Perfection</Button>
+    <ButtonLink href="/location">Refine Location</ButtonLink>
+    <ButtonLink href="/perfection">Define Perfection</ButtonLink>
 </div>
 
 <style lang="scss">

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Cookies from '$lib/components/cookies.svelte';
+    import Cookies from '$lib/components/Cookies.svelte';
     import type { PageData, ActionData } from './$types';
     
     import type { Perfection } from '$lib/types';
