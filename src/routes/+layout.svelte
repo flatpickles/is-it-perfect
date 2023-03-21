@@ -1,8 +1,7 @@
 <script lang="ts">
+    import '../app.scss';
     import 'ress';
-    import '../styles.css';
 </script>
-
 
 <div class="wrapper">
     <section class="content">
@@ -10,14 +9,14 @@
     </section>
 </div>
 
-<style>
+<style lang="scss">
     .wrapper {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         height: 100vh;
-        background-color: aquamarine;
+        background-color: $background-color;
     }
 
     .content {
@@ -27,9 +26,9 @@
         justify-content: center;
 
         width: 100%;
-        max-width: 500px;
-        padding: var(--element-spacing) 0rem;
+        max-width: $max-width;
+        padding: $element-spacing 0rem;
 
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.1);
     }
 </style>

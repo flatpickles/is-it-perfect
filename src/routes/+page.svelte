@@ -47,7 +47,7 @@
     <Button href="/perfection">Define Perfection</Button>
 </div>
 
-<style>
+<style lang="scss">
     .lead {
         font-size: 1.5rem;
         font-weight: 600;
@@ -83,7 +83,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        row-gap: var(--element-spacing);
+        row-gap: $element-spacing;
         width: 100%;
     }
 </style>
