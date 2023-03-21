@@ -2,6 +2,11 @@ $foreground-color: #dafbff;
 $background-color: #a96363;
 
 @mixin primary-text {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+@mixin secondary-text {
     font-size: 1.2rem;
     font-weight: 700;
 }

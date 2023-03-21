@@ -20,7 +20,7 @@
         background-color: $foreground-color;
         color: $background-color;
         
-        @include primary-text;
+        @include secondary-text;
         text-align: center;
         text-decoration: none;
 

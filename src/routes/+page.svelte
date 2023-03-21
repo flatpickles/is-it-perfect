@@ -24,10 +24,10 @@
             { WeatherHelpers.weatherDescription(data.weather.code) }
         </div>
         <div class="condition">
-            { data.weather.temp } {data.perfection.metric ? "Cº" : "Fº"}
+            {`${data.weather.temp}º ${data.perfection.metric ? "C" : "F"}`}
         </div>
         <div class="condition">
-            { data.weather.windspeed } {data.perfection.metric ? "km/h" : "mph"} wind
+            {`${data.weather.windspeed} ${data.perfection.metric ? "km/h" : "mph"} wind`}
         </div>
     {:else}
         <div class="condition">
@@ -58,9 +58,11 @@
     .perfection {
         width: 100%;
         margin-bottom: $element-spacing * 2;
+        padding: $element-spacing 0rem;
 
         font-family: 'Boska', serif;
         font-size: 4rem;
+        line-height: 4rem;
         text-align: center;
 
         color: $background-color;
@@ -83,7 +85,7 @@
     }
 
     .location {
-        @include primary-text;
+        @include secondary-text;
         margin-bottom: $element-spacing * 2;
     }
 
