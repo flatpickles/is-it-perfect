@@ -1,6 +1,6 @@
 <script lang="ts">
     import ButtonButton from '$lib/components/ButtonButton.svelte';
-    import Cookies from '$lib/components/Cookies.svelte';
+    import CookiesMessage from '$lib/components/CookiesMessage.svelte';
     import TextEntry from '$lib/components/TextEntry.svelte';
     import { defaultPerfection } from '$lib/types';
 
@@ -23,7 +23,7 @@
     <ButtonButton>Check Perfection</ButtonButton>
 </form>
 
-<Cookies />
+<CookiesMessage />
 
 <style lang="scss">
     .locate-form {
