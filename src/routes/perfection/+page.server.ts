@@ -1,5 +1,5 @@
 import type { Actions } from './$types';
-import { fail, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import StateHelpers from '$lib/StateHelpers';
 import type { PageServerLoad } from '../$types';
  
