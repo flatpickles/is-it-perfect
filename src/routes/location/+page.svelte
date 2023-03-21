@@ -13,21 +13,13 @@
 </script>
 
 <form class="locate-form" method="POST" action="?/locate">
-    <TextEntry name="user_location" placeholder="Enter a place name..." />
+    <TextEntry name="user_location" placeholder="Enter a zip code..." />
     <ButtonButton>Search</ButtonButton>
 </form>
 
-<br />
-
-<form method="POST" action="?/configure">
-    <label>
-        Latitude
-        <input name="lat" type="text" value={lat} />
-    </label>
-    <label>
-        Longitude
-        <input name="long" type="text" value={long} />
-    </label>
+<form class="lat-long-form" method="POST" action="?/configure">
+    <TextEntry name="lat" label="Latitude" value={lat} />
+    <TextEntry name="long" label="Longitude" value={long} />
     <ButtonButton>Check Perfection</ButtonButton>
 </form>
 
@@ -40,6 +32,16 @@
         justify-content: space-between;
         align-items: center;
         column-gap: $element-spacing;
+        width: 100%;
+        padding-bottom: $element-spacing;
+    }
+
+    .lat-long-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        row-gap: $element-spacing;
         width: 100%;
     }
 </style>
