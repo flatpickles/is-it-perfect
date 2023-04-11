@@ -2,8 +2,6 @@ import type { RequestEvent } from '@sveltejs/kit';
 import { PUBLIC_DEV_ENV } from '$env/static/public';
 import { type Coords, type Perfection, defaultPerfection } from './types';
 
-import LocationHelpers from './LocationHelpers';
-
 import Config from '$lib/Config';
 
 export default class StateHelpers {
@@ -14,34 +12,28 @@ export default class StateHelpers {
         const storedLong: number | null = storedLongStr ? parseFloat(storedLongStr) : null;
 
         // Get the current IP address
-        const requestingIP = (PUBLIC_DEV_ENV === 'true') ? '24.4.152.155' : request.getClientAddress();
+        const requestingIP =
+            PUBLIC_DEV_ENV === 'true' ? '24.4.152.155' : request.getClientAddress();
         const ipLocUrl = new URL(`http://ip-api.com/json/${requestingIP}`);
         const ipReqData = await fetch(ipLocUrl).then((response) => response.json());
         const ipLatStr: string | undefined = ipReqData['lat'];
         const ipLat: number | null = ipLatStr ? parseFloat(ipLatStr) : null;
         const ipLongStr: string | undefined = ipReqData['lon'];
         const ipLong: number | null = ipLongStr ? parseFloat(ipLongStr) : null;
-        
-        // Calculate distances, if relevant
-        let refined = (request.cookies.get(Config.refinedName) === 'true');
-        if (storedLat && storedLong && ipLat && ipLong) {
-            const distance = LocationHelpers.geoDistance(storedLat, storedLong, ipLat, ipLong);
-            if (distance > Config.refinedLimit) refined = false;
-        }
-        
+
         // Calculate the return values
         const returnLat = storedLat || ipLat;
         const returnLong = storedLong || ipLong;
-        if (!returnLat || !returnLong) throw new Error('Cannot get location from cookies or IP address');
+        if (!returnLat || !returnLong)
+            throw new Error('Cannot get location from cookies or IP address');
         return {
             lat: returnLat,
-            long: returnLong,
-            refined: refined,
-        }
+            long: returnLong
+        };
     }
 
     static currentPerfection(request: RequestEvent): Perfection {
-        // It'd be nice to do this iteratively, but that's hard in a type-safe way... 
+        // It'd be nice to do this iteratively, but that's hard in a type-safe way...
         const storedTempLowStr = request.cookies.get(Config.tempLowName);
         const storedTempHighStr = request.cookies.get(Config.tempHighName);
         const storedMaxWindStr = request.cookies.get(Config.maxWindName);
@@ -54,7 +46,7 @@ export default class StateHelpers {
         if (storedMaxWindStr) storedPerfection.maxWind = parseFloat(storedMaxWindStr);
         if (storedCloudsStr) storedPerfection.clouds = parseFloat(storedCloudsStr);
         if (storedPrecipStr) storedPerfection.precipitation = parseFloat(storedPrecipStr);
-        if (storedMetricStr) storedPerfection.metric = (storedMetricStr === 'true');
+        if (storedMetricStr) storedPerfection.metric = storedMetricStr === 'true';
         return {
             ...defaultPerfection,
             ...storedPerfection
@@ -73,6 +65,5 @@ export default class StateHelpers {
         [Config.latName, Config.longName].forEach((key) => {
             requestEvent.cookies.set(key, data.get(key) as string, { path: '/' });
         });
-        requestEvent.cookies.set(Config.refinedName, 'true', { path: '/' });
     }
 }
