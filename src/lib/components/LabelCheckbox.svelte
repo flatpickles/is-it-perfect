@@ -22,15 +22,15 @@
     }
 
     .container {
-        width: 100%;
         height: $checkbox-width;
         display: flex;
         flex-direction: row;
         align-items: center;
         position: relative;
-        padding-left: calc($checkbox-width + $element-spacing);
+        padding-left: calc($checkbox-width + $element-spacing * 1.5);
         cursor: pointer;
         user-select: none;
+        margin: $element-spacing;
     }
 
     /* Hide the browser's default checkbox */

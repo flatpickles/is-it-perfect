@@ -1,9 +1,9 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
     import ButtonButton from '$lib/components/ButtonButton.svelte';
     import CookiesMessage from '$lib/components/CookiesMessage.svelte';
     import Header from '$lib/components/Header.svelte';
     import TextEntry from '$lib/components/TextEntry.svelte';
-    import { defaultPerfection } from '$lib/types';
 
     import type { PageData, ActionData } from './$types';
     export let data: PageData;
@@ -11,6 +11,11 @@
 
     const lat = form?.lat || data.coords.lat;
     const long = form?.long || data.coords.long;
+
+    let zipInput: TextEntry;
+    onMount(() => {
+        zipInput.focus();
+    });
 </script>
 
 <svelte:head>
@@ -20,7 +25,7 @@
 <Header>Refine Location</Header>
 
 <form class="locate-form" method="POST" action="?/locate">
-    <TextEntry name="user_location" placeholder="Enter a zip code..." />
+    <TextEntry name="user_location" placeholder="Enter a zip code..." bind:this={zipInput} />
     <ButtonButton>Search</ButtonButton>
 </form>
 
