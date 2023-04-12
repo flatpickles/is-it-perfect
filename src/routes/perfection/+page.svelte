@@ -26,6 +26,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>Define Perfection</title>
+</svelte:head>
+
 <Header>Define Perfection</Header>
 
 <form method="POST" action="?/perfect" class="perfect-form">

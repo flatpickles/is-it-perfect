@@ -6,6 +6,10 @@
     const failure = data.failure;
 </script>
 
+<svelte:head>
+    <title>Is It Perfect?</title>
+</svelte:head>
+
 <div class="lead">The weather outside is</div>
 
 <div class="perfection">

@@ -13,6 +13,10 @@
     const long = form?.long || data.coords.long;
 </script>
 
+<svelte:head>
+    <title>Refine Location</title>
+</svelte:head>
+
 <Header>Refine Location</Header>
 
 <form class="locate-form" method="POST" action="?/locate">
