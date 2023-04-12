@@ -49,12 +49,12 @@
         left: 0;
         height: $checkbox-width;
         width: $checkbox-width;
-        background-color: rgba($foreground-color, 0.7);
+        background-color: rgba($foreground-color, 0.4);
     }
 
     /* On mouse-over, add a grey background color */
     .container:hover input ~ .checkmark {
-        background-color: $foreground-color;
+        background-color: rgba($foreground-color, 0.5);
     }
 
     /* When the checkbox is checked, add a blue background */

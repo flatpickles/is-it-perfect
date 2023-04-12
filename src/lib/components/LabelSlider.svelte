@@ -50,6 +50,10 @@
         outline: none;
     }
 
+    .slider:hover {
+        background: rgba($foreground-color, 0.5);
+    }
+
     .slider::-webkit-slider-thumb {
         appearance: none;
         width: $slider-height;
