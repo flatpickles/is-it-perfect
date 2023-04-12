@@ -9,4 +9,8 @@
     {displayName}
 </label>
 
-<br />
+<style>
+    label {
+        width: 100%;
+    }
+</style>

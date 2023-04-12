@@ -9,7 +9,7 @@
 
         background-color: $foreground-color;
         color: $background-color;
-        
+
         @include secondary-text;
         text-align: center;
         text-decoration: none;

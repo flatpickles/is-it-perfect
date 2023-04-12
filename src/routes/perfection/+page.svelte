@@ -25,7 +25,7 @@
     }
 </script>
 
-<form method="POST" action="?/perfect">
+<form method="POST" action="?/perfect" class="perfect-form">
     <LabelSlider
         displayName="Low Temperature"
         formName={Config.tempLowName}
@@ -72,8 +72,19 @@
         bind:checked={perfection.metric}
         on:change={metricify}
     />
-    <br />
     <ButtonButton>Check Perfection</ButtonButton>
 </form>
 
 <CookiesMessage />
+
+<style lang="scss">
+    .perfect-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        row-gap: $element-spacing;
+        width: 100%;
+        @include secondary-text;
+    }
+</style>
