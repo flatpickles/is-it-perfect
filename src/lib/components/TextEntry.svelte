@@ -3,13 +3,21 @@
     export let placeholder: string | null = null;
     export let value: string | null = null;
     export let label: string | null = null;
+
+    let inputElement: HTMLInputElement;
+
+    export function focus() {
+        if (inputElement) {
+            inputElement.focus();
+        }
+    }
 </script>
 
 <div class="entry-wrapper">
     {#if label}
         <label for={name}>{label}</label>
     {/if}
-    <input type="text" {name} {placeholder} {value} />
+    <input type="text" {name} {placeholder} {value} bind:this={inputElement} />
 </div>
 
 <style lang="scss">

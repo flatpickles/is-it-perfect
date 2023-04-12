@@ -6,13 +6,11 @@
     const failure = data.failure;
 </script>
 
-<div class="lead">
-    The weather outside is
-</div>
+<div class="lead">The weather outside is</div>
 
 <div class="perfection">
     {#if !failure && data.perfection}
-        { data.isPerfect ? "PERFECT" : "NOT PERFECT" }
+        {data.isPerfect ? 'PERFECT' : 'NOT PERFECT'}
     {:else}
         UNKNOWN
     {/if}
@@ -21,22 +19,20 @@
 <div class="conditions">
     {#if !failure && data.weather}
         <div class="condition">
-            { WeatherHelpers.weatherDescription(data.weather.code) }
+            {WeatherHelpers.weatherDescription(data.weather.code)}
         </div>
         <div class="condition">
-            {`${data.weather.temp}º ${data.perfection.metric ? "C" : "F"}`}
+            {`${data.weather.temp}º ${data.perfection.metric ? 'C' : 'F'}`}
         </div>
         <div class="condition">
-            {`${data.weather.windspeed} ${data.perfection.metric ? "km/h" : "mph"} wind`}
+            {`${data.weather.windspeed} ${data.perfection.metric ? 'km/h' : 'mph'} wind`}
         </div>
     {:else}
-        <div class="condition">
-            Failed to get weather.
-        </div>
+        <div class="condition">Failed to get weather.</div>
     {/if}
 </div>
 
-<div class="spacer"></div>
+<div class="spacer" />
 
 {#if !failure && data.placeName}
     <div class="location">
@@ -52,7 +48,7 @@
 <style lang="scss">
     .lead {
         font-family: 'Rosaline', cursive;
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
 
     .perfection {

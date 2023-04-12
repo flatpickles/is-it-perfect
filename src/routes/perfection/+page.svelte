@@ -7,6 +7,7 @@
     import ButtonButton from '$lib/components/ButtonButton.svelte';
     import LabelSlider from '$lib/components/LabelSlider.svelte';
     import LabelCheckbox from '$lib/components/LabelCheckbox.svelte';
+    import Header from '$lib/components/Header.svelte';
 
     export let data: PageData;
 
@@ -24,6 +25,8 @@
         }
     }
 </script>
+
+<Header>Define Perfection</Header>
 
 <form method="POST" action="?/perfect" class="perfect-form">
     <LabelSlider
