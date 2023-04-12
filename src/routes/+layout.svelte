@@ -40,9 +40,15 @@
 
         width: 100%;
         max-width: $max-width;
-        min-height: $min-height;
+        height: 100%;
         padding: $element-spacing 0rem;
 
         color: $foreground-color;
+    }
+
+    @media (min-height: $short-screen-cutoff) {
+        .content {
+            max-height: $desktop-content-height;
+        }
     }
 </style>

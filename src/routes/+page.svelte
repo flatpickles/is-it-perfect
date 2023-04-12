@@ -53,6 +53,7 @@
     .lead {
         font-family: 'Rosaline', cursive;
         font-size: 1.8rem;
+        text-align: center;
     }
 
     .perfection {
