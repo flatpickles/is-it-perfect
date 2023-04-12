@@ -1,6 +1,17 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
     import '../app.scss';
     import 'ress';
+
+    function updateVH() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+
+    onMount(() => {
+        updateVH();
+        window.addEventListener('resize', updateVH);
+    });
 </script>
 
 <div class="wrapper">
@@ -11,11 +22,13 @@
 
 <style lang="scss">
     .wrapper {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100vh;
         background-color: $background-color;
     }
 
