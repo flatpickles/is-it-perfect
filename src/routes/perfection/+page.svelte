@@ -4,6 +4,9 @@
     import type { Perfection } from '$lib/types';
     import Config from '$lib/Config';
     import CookiesMessage from '$lib/components/CookiesMessage.svelte';
+    import ButtonButton from '$lib/components/ButtonButton.svelte';
+    import LabelSlider from '$lib/components/LabelSlider.svelte';
+    import LabelCheckbox from '$lib/components/LabelCheckbox.svelte';
 
     export let data: PageData;
 
@@ -23,82 +26,54 @@
 </script>
 
 <form method="POST" action="?/perfect">
-    <label>
-        Low Temperature: {perfection.tempLow}
-        {perfection.metric ? 'Cº' : 'Fº'}
-        <br />
-        <input
-            name={Config.tempLowName}
-            type="range"
-            bind:value={perfection.tempLow}
-            min={perfection.metric ? '-18' : '0'}
-            max={perfection.metric ? '38' : '100'}
-        />
-    </label>
+    <LabelSlider
+        displayName="Low Temperature"
+        formName={Config.tempLowName}
+        unit={perfection.metric ? 'Cº' : 'Fº'}
+        bind:value={perfection.tempLow}
+        minValue={perfection.metric ? -18 : 0}
+        maxValue={perfection.metric ? 38 : 100}
+    />
+    <LabelSlider
+        displayName="High Temperature"
+        formName={Config.tempHighName}
+        unit={perfection.metric ? 'Cº' : 'Fº'}
+        bind:value={perfection.tempHigh}
+        minValue={perfection.metric ? -18 : 0}
+        maxValue={perfection.metric ? 38 : 100}
+    />
+    <LabelSlider
+        displayName="Max Wind"
+        formName={Config.maxWindName}
+        unit={perfection.metric ? 'km/h' : 'mph'}
+        bind:value={perfection.maxWind}
+        minValue={0}
+        maxValue={perfection.metric ? 64 : 40}
+    />
+    <LabelSlider
+        displayName="Cloud Tolerance"
+        formName={Config.cloudsName}
+        unit=""
+        bind:value={perfection.clouds}
+        minValue={0}
+        maxValue={4}
+    />
+    <LabelSlider
+        displayName="Precipitation Tolerance"
+        formName={Config.precipitationName}
+        unit=""
+        bind:value={perfection.precipitation}
+        minValue={0}
+        maxValue={4}
+    />
+    <LabelCheckbox
+        displayName="Metric Units"
+        formName={Config.metricName}
+        bind:checked={perfection.metric}
+        on:change={metricify}
+    />
     <br />
-    <label>
-        High Temperature: {perfection.tempHigh}
-        {perfection.metric ? 'Cº' : 'Fº'}
-        <br />
-        <input
-            name={Config.tempHighName}
-            type="range"
-            bind:value={perfection.tempHigh}
-            min={perfection.metric ? '-18' : '0'}
-            max={perfection.metric ? '38' : '100'}
-        />
-    </label>
-    <br />
-    <label>
-        Max Wind: {perfection.maxWind}
-        {perfection.metric ? 'km/h' : 'mph'}
-        <br />
-        <input
-            name={Config.maxWindName}
-            type="range"
-            bind:value={perfection.maxWind}
-            min="0"
-            max={perfection.metric ? '64' : '40'}
-        />
-    </label>
-    <br />
-    <label>
-        Cloud Tolerance: {perfection.clouds}
-        <br />
-        <input
-            name={Config.cloudsName}
-            type="range"
-            bind:value={perfection.clouds}
-            min="0"
-            max="4"
-        />
-    </label>
-    <br />
-    <label>
-        Precipitation Tolerance: {perfection.precipitation}
-        <br />
-        <input
-            name={Config.precipitationName}
-            type="range"
-            bind:value={perfection.precipitation}
-            min="0"
-            max="4"
-        />
-    </label>
-    <br />
-    <label>
-        <input
-            name={Config.metricName}
-            type="checkbox"
-            bind:checked={perfection.metric}
-            value="true"
-            on:change={metricify}
-        />
-        Metric Units
-    </label>
-    <br />
-    <br />
-    <button>Perfect</button>
+    <ButtonButton>Check Perfection</ButtonButton>
 </form>
 
 <CookiesMessage />
