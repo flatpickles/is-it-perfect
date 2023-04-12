@@ -25,6 +25,8 @@
 </div>
 
 <style lang="scss">
+    // I lifted a lot of this from https://www.w3schools.com/howto/howto_js_rangeslider.asp
+
     $slider-height: 1.5rem;
 
     label {
