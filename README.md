@@ -1,10 +1,10 @@
 # Is It Perfect?
 
-Because everyone needs another vaguely functional weather app, I present: Is It Perfect? This cool tool will tell you if it's "perfect" outside, and allows you to define "perfection" as you see fit.
+Because everyone needs another vaguely functional weather app, I present: **Is It Perfect?** This cool tool will tell you if it's "perfect" outside, and it allows you to define "perfection" as you see fit.
 
 When you first load the page, it'll check your IP address's location and use that for weather determination. You can further define your location with a zip code or similar identifier, and use that instead. We start with some reasonable defaults for "perfection", but adjusting these settings according to your preferences is encouraged.
 
-Perhaps you could guess – I built this little app mostly to practice making something with SvelteKit that maintains some state (via cookies) and leverages multiple external APIs. The APIs I'm using here are:
+Perhaps you've guessed – I built this little app mostly as a design study, and a little practice building something with SvelteKit that maintains state (via cookies) and leverages multiple external APIs. The APIs I'm using here are:
 
 -   [IP-API](https://ip-api.com/) for IP address localization
 -   [Open-Meteo](https://open-meteo.com/) for weather and geocoding (place name -> lat/long)

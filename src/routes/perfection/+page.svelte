@@ -79,7 +79,7 @@
         bind:checked={perfection.metric}
         on:change={metricify}
     />
-    <ButtonButton>Check Perfection</ButtonButton>
+    <ButtonButton>Save Changes</ButtonButton>
 </form>
 
 <CookiesMessage />

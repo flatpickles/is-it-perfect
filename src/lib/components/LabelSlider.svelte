@@ -33,6 +33,12 @@
         width: 100%;
     }
 
+    @media (max-width: $max-width) {
+        label {
+            padding: 0 $element-spacing;
+        }
+    }
+
     .slider-wrapper {
         width: 100%;
         display: flex;
@@ -55,6 +61,7 @@
     }
 
     .slider::-webkit-slider-thumb {
+        box-shadow: none;
         appearance: none;
         width: $slider-height;
         height: $slider-height;
@@ -63,6 +70,7 @@
     }
 
     .slider::-moz-range-thumb {
+        box-shadow: none;
         width: $slider-height;
         height: $slider-height;
         background: $foreground-color;

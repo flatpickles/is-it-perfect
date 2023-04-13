@@ -32,7 +32,7 @@
 <form class="lat-long-form" method="POST" action="?/configure">
     <TextEntry name="lat" label="Latitude" value={lat} />
     <TextEntry name="long" label="Longitude" value={long} />
-    <ButtonButton>Check Perfection</ButtonButton>
+    <ButtonButton>Save Changes</ButtonButton>
 </form>
 
 <CookiesMessage />

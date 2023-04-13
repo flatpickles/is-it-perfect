@@ -28,6 +28,7 @@
         border: 2px solid $foreground-color;
         color: $foreground-color;
         caret-color: $foreground-color;
+        outline: none;
     }
 
     $placeholder-color: rgba($foreground-color, 0.5);
