@@ -12,6 +12,7 @@ Perhaps you've guessed – I built this little app mostly as a design study, and
 
 Of course, lots more that could be done here. Some ideas:
 
+-   Loading time optimizations: can we speed up load time? Should we load weather state async (with a loading indicator) instead of doing that server-side?
 -   Using the browser's geolocation API for location selection & updates
 -   Map visualization & selection for location
 -   More weather attributes (humidity, etc)
