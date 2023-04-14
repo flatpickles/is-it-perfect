@@ -54,12 +54,13 @@
         font-family: 'Rosaline', cursive;
         font-size: 1.8rem;
         text-align: center;
+        padding: $element-spacing $element-spacing 0;
     }
 
     .perfection {
         width: 100%;
         margin-bottom: $element-spacing * 2;
-        padding: $element-spacing 0rem;
+        padding: $element-spacing;
 
         font-family: 'Boska', serif;
         font-size: 4rem;

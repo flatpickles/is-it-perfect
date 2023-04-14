@@ -5,7 +5,7 @@
 <style lang="scss">
     .button {
         display: inline-block;
-        padding: 0.5rem 1rem;
+        padding: $element-spacing calc($element-spacing * 2);
 
         background-color: $foreground-color;
         color: $background-color;
